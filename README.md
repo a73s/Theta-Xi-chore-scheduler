@@ -6,7 +6,8 @@ This program generates randomly assigned details based on which house they live 
 ## configuration:
 ### Names
 
-- Each person's name/number should go in every file that is applicable to them. An eboard who lives in the new house will go in the eboard file and the new house file. A pledge who lives in the new house will go in the pledges file and the new house file. This is so that you can just look as the room assignments and naively put peoples' names in.- **IMPORTANT: Spaces matter in names. Make sure that there are no unwanted spaces in front of or behind the names. If a pledge has an extra space in their name in the pledge folder, he may not be counted as a plege. (Same for eboards)**
+- Each person's name/number should go in every file that is applicable to them. An eboard who lives in the new house will go in the eboard file and the new house file. A pledge who lives in the new house will go in the pledges file and the new house file. This is so that you can just look as the room assignments and naively put peoples' names in.
+- - **IMPORTANT: Spaces matter in names. Make sure that there are no unwanted spaces in front of or behind the names. If a pledge has an extra space in their name in the pledge folder, he may not be counted as a plege. (Same for eboards)**
 
 
 ### Pledges
