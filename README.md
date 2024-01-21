@@ -2,6 +2,14 @@
 
 This program generates randomly assigned details based on which house they live in, and their status as a pledge or eboard. The sheets are output in markdown format, these can be openned in a markdown editor of your choice but it is configured to automatically run a bundled markdown editor for viewing and printing.
 
+- [x] Details are on set days with a set number of people on a detail.
+- [x] It should be easy to create and modify details.
+- [x] Eboards should only have 1 detail, which should be a house detail by default.
+- [x] Everyone else gets a house detail and a community detail by default.
+- [x] Pledges only get detail with 2 people for their first month.
+- [x] Graduating seniors dont get any details.
+- [x] In the case that there are not enough people in the new house to fill the sheet, community detail slots of new-housers can be redirected to fill the remainder of the sheet.
+- [x] Detail sheets will be output in a ready-to-print format.
 
 ## configuration:
 ### Names
