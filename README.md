@@ -1,4 +1,4 @@
-# Theta-Xi-Chore-scheduler
+# Theta-Xi-chore-scheduler
 
 This program generates randomly assigned details based on which house people live in, and their status as a pledge or eboard. The sheets are output in markdown format, these can be openned in a markdown editor of your choice but it's currently configured to automatically run a bundled markdown editor for viewing, editing, and printing.
 
