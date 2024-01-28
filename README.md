@@ -7,6 +7,7 @@ This program generates randomly assigned details based on which house people liv
 - [x] Details are on set days with a set number of people on a detail.
 - [x] It should be easy to create and modify details.
 - [x] Eboards should only have 1 detail, which should be a house detail by default.
+- [x] Eboards should not get details on monday.
 - [x] Everyone else gets a house detail and a community detail by default.
 - [x] Pledges only get detail with 2 people for their first month.
 - [x] Graduating seniors dont get any details.
