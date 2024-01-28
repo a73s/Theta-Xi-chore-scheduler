@@ -1,3 +1,9 @@
+## Generating Files
+
+- when you run the program a new program will run where you can edit and print the files
+- to print click the menu in the top right, file>print>export, then it should give you a printing prompt
+
+
 ## Names
 
 - Each person's name/number should go in every file that is applicable to them. An eboard who lives in the new 

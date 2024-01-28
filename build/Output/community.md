@@ -1,15 +1,15 @@
 ### Community
-| Week of kjahsdiuh saklfj|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
+| Week of rsdlk|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
 |-|-|-|-|-|-|-|-|
-|Breezeway & Yard & Dumps|712 & 702||Noah Vaccaro & 707||688 & 700|||
-|ODR Trash & furniture|||||704 & 729|Varyk Henke & 717||
-|ODR floors & stage|||||716 & 725|727 & 710||
-|Third Floor|709|||721||||
-|Library|733||685||701|||
-|Rags & Parking Lots||726||714||681||
-|Second floor study room|Noah Martin||697||735|||
-|Walk Maya|708|723|736|Adin Roach|686|737|696|
-|Basement|||732 & 687||731 & 693|||
-|ODR bathrooms||||718 & 694||||
-|License Plate patrol|||||||715|
-|Redistribute cleaning supplies||||||713||
+|Breezeway & Yard & Dumps|718 & 708||725 & 698||686 & 688|||
+|ODR Trash & furniture|||||681 & 701|713 & Adin Roach||
+|ODR floors & stage|||||696 & 704|Elijah Sanders & 707||
+|Third Floor|737|||710||||
+|Library|685||697||735|||
+|Rags & Parking Lots||723||709||717||
+|Second floor study room|673||729||694|||
+|Walk Maya|732|731|726|702|700|687|Varyk Henke|
+|Basement|||714 & 712||721 & Vincent Barbieri|||
+|ODR bathrooms||||716 & 736||||
+|License Plate patrol|||||||Jacob Vossekuil|
+|Redistribute cleaning supplies||||||734||

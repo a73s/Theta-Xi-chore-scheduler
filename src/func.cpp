@@ -273,11 +273,12 @@ void managePledgeTimer(const int timeDays){
     return;
 }
 
-Person randomPerson(std::vector<Person> & persons, int preferPledge, const bool mustBeNewHouse){
+Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, int preferPledge, const bool mustBeNewHouse){
 
     int personIndex = 0;
     Person * personPtr;//using a pointer so that we're not copying the person every time we try to pick a random one, that may happen many times
     int numPledges = 0;
+    int numEboards = 0;
     int barrows = 0;
     const bool canBePledge = preferPledge > 0;
 
@@ -291,11 +292,15 @@ Person randomPerson(std::vector<Person> & persons, int preferPledge, const bool 
 
             barrows++;
         }
+        if(persons[i].IsEboard()){
+
+            numEboards++;
+        }
     }
 
     //preferPledge *= numPledges;
 
-    if(barrows == 0 && mustBeNewHouse){
+    if((barrows == 0 && mustBeNewHouse) || (numEboards == static_cast<int>(persons.size()) && !canBeEboard)){
 
         return Person("error", false, false, false, false);
     }
@@ -312,7 +317,7 @@ Person randomPerson(std::vector<Person> & persons, int preferPledge, const bool 
             preferPledge--;
         }
 
-    }while((preferPledge >= 0 && !personPtr->IsPledge() && numPledges > 0) || (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()));
+    }while((preferPledge >= 0 && !personPtr->IsPledge() && numPledges > 0) || (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()) || (!canBeEboard && personPtr->IsEboard()));
 
     Person thePerson = *personPtr;
     persons.erase(persons.begin() + personIndex);

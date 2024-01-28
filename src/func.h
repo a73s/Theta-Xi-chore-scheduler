@@ -15,7 +15,7 @@ Date: 1/12/24
 #define NEW_HOUSE_DETAIL_FILE "Details/new-house.txt"
 #define OLD_HOUSE_DETAIL_FILE "Details/old-house.txt"
 
-inline const std::string SHEETS_OUTPUT_PATH = "Output";//gives me an error if this is a macro instead of an actual string. Complains when I do this: "./marktext/MarkText.exe " + SHEETS_OUTPUT_PATH
+#define SHEETS_OUTPUT_PATH "Output"
 #define COMMUNITY_SHEET_OUTPUT "Output/community.md"
 #define NEW_HOUSE_SHEET_OUTPUT "Output/new-house.md"
 #define OLD_HOUSE_SHEET_OUTPUT "Output/old-house.md"
@@ -51,7 +51,7 @@ void managePledgeTimer(const int timeDays = 30);
 //if preferPledge is zero you are guaranteed to get a non-pledge
 //if you are barrowing from the community pool(mustBeNewHouse = true), then it will return return a person from the new house
 //if there is no new-houser in the given list then it will return a person whos label is "error"
-Person randomPerson(std::vector<Person> & persons, int preferPledge = 0, const bool mustBeNewHouse = false);
+Person randomPerson(std::vector<Person> & persons, const bool canBeEboard,int preferPledge = 0, const bool mustBeNewHouse = false);
 
 
 //desc: returns the day number starting at 0 on monday and ending at 6 on sunday

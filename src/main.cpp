@@ -4,10 +4,25 @@ Date: 1/12/24
 Purpose: Automatic detail maker
 */
 
+/*
+todo:
+an infinite loop can happen while looking for a person if there is only an eboard left and its looking for a monday slot
+so we need to return an error if !canBeEboard && the only people left is eboards
+
+make an error state for all sheets(for the eboard thing)
+
+*/
+
 #include <cstdlib>
 #include <ctime>
 #include <string>
 #include <vector>
+#include <cstdio>
+
+#ifdef _WIN32
+    #include <windows.h>
+    #include <shellapi.h>
+#endif
 //#include <iostream>
 
 #include "func.h"
@@ -65,7 +80,7 @@ int main(){
     }
 
     std::string date;
-    std::cout << "Enter the date to be shown on the detail sheets :";
+    std::cout << "Enter the date to be shown on the detail sheets: ";
     getline(std::cin, date);
 
     Sheet communitySheet("Community", date);
@@ -90,6 +105,7 @@ int main(){
     std::vector<Person>* activePoolPtr = &newHousePool;//this is so we can swap the community pool in when the new house pool runs out
     std::string daysString = "";
     bool canBePledge = false;
+    bool canBeEboard = false;
     int dayNum = 0;
     int pledgePriority = 0;//implementing this variable actually maked it less likely for a pledge to be chosen, I just thought it would be funny
 
@@ -113,10 +129,11 @@ int main(){
 
                 dayNum = getDayNum(daysString[j]);
                 pledgePriority = (k == 0 && canBePledge)? ((i + 1) * PLEDGE_PRIORITY_MULTIPLIER) : (0);
+                canBeEboard = (dayNum != 0) ? true:false;
 
                 if(dayNum != -1){
 
-                    Person aPerson = randomPerson((*activePoolPtr), pledgePriority, true);
+                    Person aPerson = randomPerson((*activePoolPtr), canBeEboard, pledgePriority, true);
 
                     //this will only happen if there are no newhouse people left in the community pool
                     if(aPerson.Label() == "error"){
@@ -161,10 +178,22 @@ int main(){
 
                 dayNum = getDayNum(daysString[j]);
                 pledgePriority = (k == 0 && canBePledge)? ((i + 1) * PLEDGE_PRIORITY_MULTIPLIER) : (0);//in theory there should not be pledges in the old house anyway but i figured i would do this just in case
+                canBeEboard = (dayNum != 0) ? true:false;
 
                 if(dayNum != -1){
+                    
+                    Person aPerson = randomPerson(oldHousePool, canBeEboard, pledgePriority);
 
-                    oldHouseSheet.addPerson(randomPerson(oldHousePool, pledgePriority).Label(), i, dayNum);
+                    //this will only happen if there are no newhouse people left in the community pool
+                    if(aPerson.Label() == "error"){
+
+                        oldHouseSheet.Warn();
+                        goto endOldHouseSheet;//break all 3 loops
+
+                    }else{
+
+                        oldHouseSheet.addPerson(aPerson.Label(), i, dayNum);
+                    }
                 } 
             }
         }
@@ -198,10 +227,22 @@ int main(){
 
                 dayNum = getDayNum(daysString[j]);
                 pledgePriority = (k == 0 && canBePledge)? ((i + 1) * PLEDGE_PRIORITY_MULTIPLIER) : (0);
+                canBeEboard = (dayNum != 0) ? true:false;
 
                 if(dayNum != -1){
 
-                    communitySheet.addPerson(randomPerson(communityPool, pledgePriority).Label(), i, dayNum);
+                    Person aPerson = randomPerson(communityPool, canBeEboard, pledgePriority);
+
+                    //this will only happen if there are no newhouse people left in the community pool
+                    if(aPerson.Label() == "error"){
+
+                        communitySheet.Warn();
+                        goto endCommunitySheet;//break all 3 loops
+
+                    }else{
+
+                        communitySheet.addPerson(aPerson.Label(), i, dayNum);
+                    }
                 }  
             }
         }
@@ -220,7 +261,16 @@ int main(){
     oldHouseSheet.Output(OLD_HOUSE_SHEET_OUTPUT);
     newHouseSheet.Output(NEW_HOUSE_SHEET_OUTPUT);
 
-    system(("./marktext/MarkText.exe " + SHEETS_OUTPUT_PATH).c_str());
+    #ifdef _WIN32
+        ShellExecute(NULL,"open",".\\marktext\\MarkText.exe",SHEETS_OUTPUT_PATH,"", SW_SHOWDEFAULT);
+    #endif
+
+    #ifdef __linux__
+        system(("./marktext/MarkText.exe " SHEETS_OUTPUT_PATH));
+    #endif
+
+    std::cout << "Press enter to quit.";
+    getchar();
 
     return 0;
 }
