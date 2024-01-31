@@ -1,13 +1,13 @@
 ### New House
-| Week of rsdlk|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
+| Week of |**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
 |-|-|-|-|-|-|-|-|
-|First Floor Halls/Foyer||Elijah Sanders & Noah Martin||686 & 730||727 & 685||
-|First Floor Laundry & Water Fountain|||715||||710|
-|Second Floor Halls||Varyk Henke & 737||||735 & 732||
-|Second Floor Laundry & Water Fountain|||734||||Jacob Vossekuil|
-|First Floor Toilets|713||701||705||729|
-|First Floor John's and Jens cleanup||702 & 673||724 & 714||Adin Roach & 717||
-|First Floor John's and Jens Showers|723||733||731||712|
-|Second Floor Toilets|681||722||Vincent Barbieri||Noah Vaccaro|
-|Second Floor John's Cleanup||711 & 716||726 & 728||709 & 687||
-|Second Floor Johns Showers|721 & 736||700 & 718||725 & 715||727 & 733|
+|First Floor Halls/Foyer||736 & 712||685 & Jacob Vossekuil||Noah Vaccaro & 737||
+|First Floor Laundry & Water Fountain|||Noah Martin||||733|
+|Second Floor Halls||Adin Roach & 728||||713 & Vincent Barbieri||
+|Second Floor Laundry & Water Fountain|||Varyk Henke||||702|
+|First Floor Toilets|711||727||729||686|
+|First Floor John's and Jens cleanup||723 & 709||715 & 718||735 & 734||
+|First Floor John's and Jens Showers|726||725||673||716|
+|Second Floor Toilets|717||701||687||681|
+|Second Floor John's Cleanup||732 & 722||731 & 730||721 & 705||
+|Second Floor Johns Showers|724 & 714||Elijah Sanders & 700||710 & 717||673 & 721|

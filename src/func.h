@@ -26,9 +26,12 @@ Date: 1/12/24
 #define PLEDGES_FILE "People/pledges.txt"
 #define GRADUATING_FILE "People/graduating-seniors.txt"
 
+#define NEW_HOUSE_TITLE "New House"
+#define OLD_HOUSE_TITLE "Old House"
+#define COMMUNITY_TITLE "Community"
+
 #define PLEDGE_TIME_DAYS 29
 #define SECONDS_IN_DAY 86400
-#define PLEDGE_PRIORITY_MULTIPLIER 2
 
 #define DEBUG true
 
@@ -51,7 +54,7 @@ void managePledgeTimer(const int timeDays = 30);
 //if preferPledge is zero you are guaranteed to get a non-pledge
 //if you are barrowing from the community pool(mustBeNewHouse = true), then it will return return a person from the new house
 //if there is no new-houser in the given list then it will return a person whos label is "error"
-Person randomPerson(std::vector<Person> & persons, const bool canBeEboard,int preferPledge = 0, const bool mustBeNewHouse = false);
+Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse = "");
 
 
 //desc: returns the day number starting at 0 on monday and ending at 6 on sunday

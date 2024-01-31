@@ -7,11 +7,13 @@ Date: 1/12/24
 
 #include "sheet.h"
 #include "file.h"
+#include "func.h"
 
-Sheet::Sheet(const std::string & title, const std::string & date){
+Sheet::Sheet(const std::string & title, const std::string & date, const std::string & houseFilter){
 
-    this->title += title;
+    this->title = title;
     this->date = date;
+    this->houseFilterStr = houseFilter;
 }
 
 void Sheet::addDetail(const Detail & theDetail){
@@ -44,7 +46,7 @@ void Sheet::Output(const std::string & path){
     WriteFile oFile;
     oFile.Open(path);
 
-    oFile.WriteLine(this->title);
+    oFile.WriteLine("### " + this->title);
     oFile.WriteLine("| Week of " + this->date + "|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|");
     oFile.WriteLine("|-|-|-|-|-|-|-|-|");
 
@@ -70,4 +72,60 @@ void Sheet::Output(const std::string & path){
     }
 
     oFile.Close();
+}
+
+bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * const secondaryPool){
+
+    std::vector<Person>* activePoolPtr = primaryPool;//this is so we can swap the community pool in when the new house pool runs out
+    std::string daysString = "";
+    bool canBePledge = false;
+    bool canBeEboard = false;
+    int dayNum = 0;
+
+    for(int i = 0; i < this->NumDetails(); i++){
+
+        daysString = this->DaysString(i);
+        canBePledge = this->NumPeople(i) > 1;
+
+        for(int j = 0; j < static_cast<int>(daysString.size()); j++){
+
+            for(int k = 0; k < this->NumPeople(i); k++){
+                
+                //only catches the primary pool runout, secondary pool runout is caught by the randomPerson() function returning an error
+                //we only catch the primary run out here so that we can quickly swap in the secondary pool
+                if(primaryPool->size() < 1 && activePoolPtr == primaryPool){
+
+                    if(secondaryPool == nullptr){
+
+                        std::cout << "Error: " + this->title + " pool has run out of people before the sheet was complete" << std::endl;
+                        this->Warn();
+                        return 1;
+                    }
+                    
+                    std::cout << this->title + " pool has run out of people before the sheet was complete, attempting to barrow from secondary pool." << std::endl;
+                    activePoolPtr = secondaryPool;
+                }
+
+                dayNum = getDayNum(daysString[j]);
+                canBeEboard = (dayNum != 0) ? true:false;
+
+                if(dayNum != -1){
+
+                    Person aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr);
+
+                    if(aPerson.Label() == "error"){
+
+                        this->Warn();
+                        return 1;
+
+                    }else{
+
+                        this->addPerson(aPerson.Label(), i, dayNum);
+                    }
+                }
+            }
+        }
+    }
+    
+    return 0;
 }

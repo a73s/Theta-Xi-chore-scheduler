@@ -18,7 +18,7 @@ class Sheet{
     //desc:constructor, sets the date and the title
     //pre:input the date in whatever format you want
     //post:edits the title, and firstLine
-    Sheet(const std::string & title, const std::string & date);
+    Sheet(const std::string & title, const std::string & date, const std::string & houseFilter);
 
     //desc:adds a detail to the sheet
     //pre:takes a detail
@@ -35,6 +35,11 @@ class Sheet{
     //post: outputs the sheet in markdown format to the file path specified
     void Output(const std::string & path);
 
+    //desc: fills the given sheet
+    //pre: input the pointers to primary and secondary sheets, this is so that the second one can be optional
+    //post: will fill the sheet using the primary pool and optionally the secondary pool
+    bool Fill(std::vector<Person> * const primaryPool, std::vector<Person> * const secondaryPool = nullptr);
+
     int NumDetails() const {return numDetails;}
     std::string DaysString(const int index) const {return daysString[index];}
     int NumPeople(const int index) const {return numPeople[index];}
@@ -42,8 +47,9 @@ class Sheet{
 
     private:
 
-    std::string title = "### ";
+    std::string title = "";
     std::string date = "";
+    std::string houseFilterStr = "";
 
     int numDetails = 0;
     bool tooFewWarning = false;

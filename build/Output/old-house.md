@@ -1,7 +1,7 @@
 ### Old House
-| Week of rsdlk|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
+| Week of |**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
 |-|-|-|-|-|-|-|-|
-|Hallway|||||||693|
-|Toilets||696||703||698||
-|johns clean up|||688||694||707|
-|shower||708||||704||
+|Hallway|||||||688|
+|Toilets||693||697||694||
+|johns clean up|||704||707||708|
+|shower||696||||698||

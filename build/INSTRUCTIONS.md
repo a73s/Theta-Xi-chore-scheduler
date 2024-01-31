@@ -33,5 +33,6 @@ the next time the program is run, their name will automatically be removed from 
 warning at the bottom of the output file file.
 
 
+## Printing
 
-
+- You can print by going to the menu in the top left and hitting file>print

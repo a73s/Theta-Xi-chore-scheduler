@@ -156,11 +156,11 @@ void readInData(std::vector <Detail> & communityDetails, std::vector <Detail> & 
 
         if(!fileLine.empty()){
 
-            bool isPledge = isInVector<Person>(pledges, Person(fileLine, false, true, false, true));
-            bool isEboard = isInVector<Person>(eboards, Person(fileLine, true, false, false, true));
-            bool isGraduating = isInVector<Person>(graduating, Person(fileLine, false, false, true, true));
+            bool isPledge = isInVector<Person>(pledges, Person(fileLine, false, true, false, ""));
+            bool isEboard = isInVector<Person>(eboards, Person(fileLine, true, false, false, ""));
+            bool isGraduating = isInVector<Person>(graduating, Person(fileLine, false, false, true, ""));
 
-            newHouse.push_back(Person(fileLine, isEboard, isPledge, isGraduating, true));
+            newHouse.push_back(Person(fileLine, isEboard, isPledge, isGraduating, NEW_HOUSE_TITLE));
         }
     }
 
@@ -170,11 +170,11 @@ void readInData(std::vector <Detail> & communityDetails, std::vector <Detail> & 
 
         if(!fileLine.empty()){
 
-            bool isPledge = isInVector<Person>(pledges, Person(fileLine, false, true, false, false));
-            bool isEboard = isInVector<Person>(eboards, Person(fileLine, true, false, false, false));
-            bool isGraduating = isInVector<Person>(graduating, Person(fileLine, false, false, true, false));
+            bool isPledge = isInVector<Person>(pledges, Person(fileLine, false, true, false, ""));
+            bool isEboard = isInVector<Person>(eboards, Person(fileLine, true, false, false, ""));
+            bool isGraduating = isInVector<Person>(graduating, Person(fileLine, false, false, true, ""));
 
-            oldHouse.push_back(Person(fileLine, isEboard, isPledge, isGraduating, false));
+            oldHouse.push_back(Person(fileLine, isEboard, isPledge, isGraduating, OLD_HOUSE_TITLE));
         }
     }
 
@@ -273,53 +273,48 @@ void managePledgeTimer(const int timeDays){
     return;
 }
 
-Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, int preferPledge, const bool mustBeNewHouse){
+Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse){
 
-    int personIndex = 0;
-    Person * personPtr;//using a pointer so that we're not copying the person every time we try to pick a random one, that may happen many times
-    int numPledges = 0;
-    int numEboards = 0;
-    int barrows = 0;
-    const bool canBePledge = preferPledge > 0;
+    std::vector<Person *> qualifiedPersons;//vector of pointers so we're not copying so much data
+
+    bool isQualified = false;
+
+    // we want to create a list of people who are elegable for the given detail spot.
+    // this allows us to pick people from the list and be certain that they are elegable.
+    // the alternative is to repeatedly get a random person from the list until we get one who is elegable.
+    // in the case where the pool of people is large and there are very few people that fit our requirements,
+    // it could take a lot of guessing to find someone who is elegable.
+    // the negative here is it add some pre processing to make the list of qualified
+    // and it adds some post processing to remove the person from the original list since we now have no idea what it's index is
 
     for(int i = 0; i < static_cast<int>(persons.size()); i++){
 
-        if(persons[i].IsPledge()){
+        isQualified = (canBePledge || !persons[i].IsPledge()) && (persons[i].House() == targetHouse || targetHouse == "") && (canBeEboard || !persons[i].IsEboard());
+        // this condition inverted: (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()) || (!canBeEboard && personPtr->IsEboard())
 
-            numPledges++;
-        }
-        if(persons[i].CanBeBarrowedFromCommunity()){
+        if(isQualified){
 
-            barrows++;
-        }
-        if(persons[i].IsEboard()){
-
-            numEboards++;
+            qualifiedPersons.push_back(&persons[i]);
         }
     }
 
-    //preferPledge *= numPledges;
+    Person thePerson = *(qualifiedPersons[genRand(0, qualifiedPersons.size() - 1)]);
 
-    if((barrows == 0 && mustBeNewHouse) || (numEboards == static_cast<int>(persons.size()) && !canBeEboard)){
+    int personIndex = -1;
+    for(int i = 0; i < static_cast<int>(persons.size()); i++){
 
-        return Person("error", false, false, false, false);
-    }
- 
-    //this method of picking a random person can be expensive if there are very few people in the pool that meet the requirements
-    //however randomness is a priority here so its a cost im willing to allow. Some of the cost is mitigated using the person pointer.
-    do{
+        if(persons[i] == thePerson){
 
-        personIndex = genRand(0, persons.size() - 1);
-        personPtr = &(persons[personIndex]);
-
-        if(preferPledge >= 0){
-            
-            preferPledge--;
+            personIndex = i;
+            break;
         }
+    }
 
-    }while((preferPledge >= 0 && !personPtr->IsPledge() && numPledges > 0) || (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()) || (!canBeEboard && personPtr->IsEboard()));
+    if(static_cast<int>(qualifiedPersons.size()) == 0 || personIndex == -1){
 
-    Person thePerson = *personPtr;
+        return Person("error", false, false, false, "");
+    }
+
     persons.erase(persons.begin() + personIndex);
     
     return thePerson;
