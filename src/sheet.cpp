@@ -18,8 +18,6 @@ Sheet::Sheet(const std::string & title, const std::string & date, const std::str
 
 void Sheet::addDetail(const Detail & theDetail){
 
-
-
     this->labels.push_back(theDetail.Label());
     std::vector <std::string> aStrVec = {"","","","","","",""};
     this->days.push_back(aStrVec);
@@ -110,17 +108,17 @@ bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * 
                 canBeEboard = (dayNum != 0) ? true:false;
 
                 if(dayNum != -1){
+                    
+                    try{
 
-                    Person aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr);
-
-                    if(aPerson.Label() == "error"){
-
-                        this->Warn();
-                        return 1;
-
-                    }else{
-
+                        Person aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr);
                         this->addPerson(aPerson.Label(), i, dayNum);
+                    }
+                    catch(char *errStr){//catches the error that there is nobody qualified
+                        
+                        this->Warn();
+                        std::cout << errStr << std::endl;
+                        return 1;
                     }
                 }
             }

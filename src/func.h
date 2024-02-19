@@ -50,10 +50,9 @@ void readInData(std::vector <Detail> & communityDetails, std::vector <Detail> & 
 //out: checks pledge timers, gives them a new timer if they have none, 
 void managePledgeTimer(const int timeDays = 30);
 
-//desc: picks a random person, preferPledge is the number of random samples the function will make while looking for a pledge. any further samples will allow non-pledges
-//if preferPledge is zero you are guaranteed to get a non-pledge
-//if you are barrowing from the community pool(mustBeNewHouse = true), then it will return return a person from the new house
-//if there is no new-houser in the given list then it will return a person whos label is "error"
+//desc: picks a random person from the pool given the requirements
+//function will make sure that the person is from the target house (unless left blank), and that he meets the other requirements
+//if there is nobody that meets the requirements then a char* exception will be thrown
 Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse = "");
 
 

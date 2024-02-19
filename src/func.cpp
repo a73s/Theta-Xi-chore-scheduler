@@ -7,7 +7,6 @@ Date: 1/12/24
 #include <vector>
 #include <string>
 #include <ctime>
-//#include <cstdio>
 
 #include "func.h"
 #include "person.h"
@@ -289,13 +288,20 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
 
     for(int i = 0; i < static_cast<int>(persons.size()); i++){
 
-        isQualified = (canBePledge || !persons[i].IsPledge()) && (persons[i].House() == targetHouse || targetHouse == "") && (canBeEboard || !persons[i].IsEboard());
+        Person tPerson = persons[i];
+
+        isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard());
         // this condition inverted: (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()) || (!canBeEboard && personPtr->IsEboard())
 
         if(isQualified){
 
             qualifiedPersons.push_back(&persons[i]);
         }
+    }
+
+    if(qualifiedPersons.size() == 0){
+        
+        throw "No remaining people qualified."; 
     }
 
     Person thePerson = *(qualifiedPersons[genRand(0, qualifiedPersons.size() - 1)]);
@@ -310,9 +316,9 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
         }
     }
 
-    if(static_cast<int>(qualifiedPersons.size()) == 0 || personIndex == -1){
-
-        return Person("error", false, false, false, "");
+    if(personIndex == -1){
+        
+        throw "Error finding the person's index";
     }
 
     persons.erase(persons.begin() + personIndex);

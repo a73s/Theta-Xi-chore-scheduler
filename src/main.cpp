@@ -4,11 +4,12 @@ Date: 1/12/24
 Purpose: Automatic detail maker
 */
 
-#include <cstdlib>
+#include <stdlib.h>
 #include <ctime>
 #include <string>
 #include <vector>
 #include <cstdio>
+
 
 #ifdef _WIN32
     #include <windows.h>
@@ -125,7 +126,7 @@ int main(){
         ShellExecute(NULL,"open",".\\marktext\\MarkText.exe",SHEETS_OUTPUT_PATH,"", SW_SHOWDEFAULT);
     #endif
 
-    #ifndef _WIN32 //#ifdef __linux__ was causing this to compile under msys2/mingw64
+    #ifdef __linux__//using shellexecute was meant to prevent windows defender complaints but it seems that it is still complaining unless I comment this out
         system(("./marktext/MarkText.exe " SHEETS_OUTPUT_PATH));
     #endif
 
