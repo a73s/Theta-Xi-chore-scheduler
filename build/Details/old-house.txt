@@ -1,0 +1,1 @@
+#<detail name>:<days(H for thursday, U for sunday)>:<number of poeple required>
