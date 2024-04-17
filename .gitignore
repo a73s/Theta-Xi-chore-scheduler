@@ -1,2 +1,11 @@
 .vscode
-build/detailmaker.exe
+build/DetailGen.exe
+build/DetailGen
+.cmake
+build/Makefile
+build/cmake_install.cmake
+build/CMakeFiles
+build/CMakeCache.txt
+build/Output/*
+build/People/*
+build/Details/*
