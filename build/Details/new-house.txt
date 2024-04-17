@@ -1,4 +1,4 @@
-<detail name>:<days(H for thursday, U for sunday)>:<number of poeple required>
+#<detail name>:<days(H for thursday, U for sunday)>:<number of poeple required>
 First Floor Halls/Foyer:THS:2
 First Floor Laundry & Water Fountain:WU:1
 Second Floor Halls:TS:2

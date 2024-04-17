@@ -34,8 +34,13 @@ This program generates randomly assigned details based on which house people liv
 - M = Monday, T = Tuesday, W = Wednesday, H = Thursday, F = Friday, S = Saturday, U = Sunday
 - The number of people is a maximum of 9
 - Its a good practice to make sure there are no eronious spaces
-- If there are too few people in a category, there will be details which are missing people. There will also be a warning at the bottom of the output file file.
 
-### Printing
+## Printing
 
-- You can print by clicking the menu in the top left corner and goind to file>print
+- You can print by going to the menu in the top left and hitting file->print
+
+## Commenting
+
+- At any point you put an "#", all text after it on that line will be invisible in the eyes of the program.
+- This can be used to temporarily remove a detai or a person from the pool, it works in every config file.
+- If there are too few people in a category, there will be details which are missing people. There will also be a warning at the bottom of the output file file. 

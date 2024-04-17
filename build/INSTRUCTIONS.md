@@ -35,4 +35,9 @@ warning at the bottom of the output file file.
 
 ## Printing
 
-- You can print by going to the menu in the top left and hitting file>print
+- You can print by going to the menu in the top left and hitting file->print
+
+## Commenting
+
+- At any point you put an "#", all text after it on that line will be commented out.
+- This can be used to temporarily remove a detai or a person from the pool, it works in every config file.

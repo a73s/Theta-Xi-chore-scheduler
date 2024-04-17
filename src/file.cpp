@@ -50,14 +50,25 @@ bool ReadFile::Close(){
 std::string ReadFile::readLine(){
 
     std::string returnVar;
+    bool isComment = false;//allows us to eliminate comments from the line
 
     getline(theFile, returnVar);
 
     //check for carriage return in the line, need to be removed to avoid issues
     for(int i = 0; i < static_cast<int>(returnVar.size()); i++){
 
+        if(returnVar[i] == '#'){
+            
+            isComment = true;
+        }
+
+        if(isComment){
+
+            returnVar.erase(i);
+        }
+
         if(returnVar[i] == '\r')
-        returnVar.erase(i);
+            returnVar.erase(i);
     } 
 
     this->lineNum++;

@@ -1,4 +1,4 @@
-/*
+/*{
 Author: Adam Seals
 Date: 1/12/24
 */
@@ -50,11 +50,6 @@ void readInData(std::vector <Detail> & communityDetails, std::vector <Detail> & 
 
     std::string fileLine;
 
-    //skip the first line of each file because there is a descriptor line there
-    fileLine = communityDetailFile.readLine();
-    fileLine = newHouseDetailFile.readLine();
-    fileLine = oldHouseDetailFile.readLine();
-
     //input the details into the lists
     while(!communityDetailFile.eof()){
 
@@ -91,13 +86,6 @@ void readInData(std::vector <Detail> & communityDetails, std::vector <Detail> & 
         
         oldHouseDetails.push_back(Detail(fileLine));
     }
-
-    //skip first line, it is a title
-    fileLine = eboardsFile.readLine();
-    fileLine = newHouseFile.readLine();
-    fileLine = oldHouseFile.readLine();
-    fileLine = pledgesFile.readLine();
-    fileLine = graduatingFile.readLine();
 
     //read in the names into eboard/pledge/grad. This allows us to easily check if they are eboard or pledge or grad when it comes to new/old house lists
     while(!graduatingFile.eof()){
@@ -195,9 +183,6 @@ void managePledgeTimer(const int timeDays){
     std::string fileLine;
     std::vector<std::string> fileLinesBuffer;//vector from which we will recreate the file
 
-    fileLine = pledgesFile.readLine();//skip first line, its not a name
-    fileLinesBuffer.push_back(fileLine);
-
     //parse each line then check if they need a date added or if they need to be removed
     while(!pledgesFile.eof()){
 
@@ -274,7 +259,10 @@ void managePledgeTimer(const int timeDays){
 
 Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse){
 
-    std::vector<Person *> qualifiedPersons;//vector of pointers so we're not copying so much data
+    std::vector<Person *> qualifiedPersons;
+    qualifiedPersons.reserve(persons.size());
+    //vector of pointers so we're not copying so much data
+    //initialized to the size of persons. This should cut down on the number of resize operations required
 
     bool isQualified = false;
 

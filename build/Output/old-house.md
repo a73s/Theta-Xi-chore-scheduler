@@ -1,7 +1,7 @@
 ### Old House
-| Week of |**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
+| Week of testdate|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|
 |-|-|-|-|-|-|-|-|
-|Hallway|||||||688|
-|Toilets||693||697||694||
-|johns clean up|||704||707||708|
-|shower||696||||698||
+|Hallway|||||||707|
+|Toilets||694||708||703||
+|johns clean up|||696||693||697|
+|shower||688||||698||

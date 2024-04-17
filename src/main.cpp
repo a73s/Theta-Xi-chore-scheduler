@@ -4,6 +4,8 @@ Date: 1/12/24
 Purpose: Automatic detail maker
 */
 
+
+
 #include <stdlib.h>
 #include <ctime>
 #include <string>
@@ -21,7 +23,7 @@ Purpose: Automatic detail maker
 #include "person.h"
 #include "sheet.h"
 
-int main(){
+int main(int argv, char *args[]){
     
     srand(time(NULL));
 
