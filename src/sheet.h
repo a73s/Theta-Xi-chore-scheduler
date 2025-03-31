@@ -30,6 +30,9 @@ class Sheet{
     //post: adds the person's name to the specified detail
     void addPerson(const std::string & name, const int & detailIndex, const int & dayNum);
 
+    //return person at the detail, daynum, slot, indexes
+    /*Person getPerson(const int detailIndex, const int dayNum, const int slotIndex);*/
+
     //desc: outputs the sheet in markdown format to the file path specified
     //pre: input file path
     //post: outputs the sheet in markdown format to the file path specified
@@ -54,7 +57,8 @@ class Sheet{
     int numDetails = 0;
     bool tooFewWarning = false;
     std::vector <std::string> labels = {};//labels for each detail
-    std::vector <std::vector<std::string>> days = {};//each detail has a string list of 7 days
+    std::vector <std::vector<std::string>> detail_days_slots = {};//each detail has a string list of 7 days
+    /*std::vector <std::vector<std::vector<Person>>> detail_days_slots = {};//each detail has a string list of 7 days*/
     std::vector <int> numPeople = {};//number of people on the detail
     std::vector <std::string> daysString = {};
 };

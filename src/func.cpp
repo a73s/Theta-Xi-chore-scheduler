@@ -257,7 +257,7 @@ void managePledgeTimer(const int timeDays){
     return;
 }
 
-Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse){
+Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse, Person detailPartner){
 
     std::vector<Person *> qualifiedPersons;
     qualifiedPersons.reserve(persons.size());
@@ -278,7 +278,7 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
 
         Person tPerson = persons[i];
 
-        isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard());
+        isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard()) && (tPerson != detailPartner);
         // this condition inverted: (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()) || (!canBeEboard && personPtr->IsEboard())
 
         if(isQualified){
@@ -288,7 +288,7 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
     }
 
     if(qualifiedPersons.size() == 0){
-        
+
         throw "No remaining people qualified."; 
     }
 
@@ -305,12 +305,12 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
     }
 
     if(personIndex == -1){
-        
+
         throw "Error finding the person's index";
     }
 
     persons.erase(persons.begin() + personIndex);
-    
+
     return thePerson;
 }
 
@@ -323,7 +323,7 @@ int getDayNum(const char dayChar){
             break;
         }
         case 'T':{
-            return 1; 
+            return 1;
             break;
         }
         case 'W':{
@@ -335,15 +335,15 @@ int getDayNum(const char dayChar){
             break;
         }
         case 'F':{
-            return 4; 
+            return 4;
             break;
         }
         case 'S':{
-            return 5; 
+            return 5;
             break;
         }
         case 'U':{
-            return 6;   
+            return 6;
             break;
         }
         default:{

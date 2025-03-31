@@ -34,7 +34,6 @@ Detail::Detail(const std::string & infoString){
         }
 
         if(sectionNum == 1){//if in section 2 and the character is not space
- 
             days += infoString[i];
         }
 
