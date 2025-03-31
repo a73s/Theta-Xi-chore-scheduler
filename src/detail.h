@@ -4,6 +4,8 @@ Date: 1/12/24
 */
 
 #include <string>
+#include <vector>
+#include "person.h"
 
 #ifndef DETAIL_H
 #define DETAIL_H
@@ -25,6 +27,7 @@ class Detail{
 
     std::string label;
     std::string daysString;
+    /*std::vector<std::vector<Person>> days_slots;*/
     int numPeople;
 
     void ParseDays(const std::string & days);
