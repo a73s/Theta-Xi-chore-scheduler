@@ -26,12 +26,9 @@ class Sheet{
     void addDetail(const Detail & theDetail);
 
     //desc: adds a person to a particular day on a particular detail
-    //pre: input the index of the detail, the name of the person, and the day number (0-6)
+    //pre: input the index of the detail, the person, and the day number (0-6)
     //post: adds the person's name to the specified detail
-    void addPerson(const std::string & name, const int & detailIndex, const int & dayNum);
-
-    //return person at the detail, daynum, slot, indexes
-    /*Person getPerson(const int detailIndex, const int dayNum, const int slotIndex);*/
+    void addPerson(const Person & thePerson, const int & detailIndex, const int & dayNum);
 
     //desc: outputs the sheet in markdown format to the file path specified
     //pre: input file path
@@ -43,9 +40,9 @@ class Sheet{
     //post: will fill the sheet using the primary pool and optionally the secondary pool
     bool Fill(std::vector<Person> * const primaryPool, std::vector<Person> * const secondaryPool = nullptr);
 
-    int NumDetails() const {return numDetails;}
-    std::string DaysString(const int index) const {return daysString[index];}
-    int NumPeople(const int index) const {return numPeople[index];}
+    int NumDetails() const {return details.size();}
+    std::string DaysString(const int index) const {return details[index].DaysString();}
+    int NumPeopleRequired(const int index) const {return numPeopleRequired[index];}
     void Warn() {tooFewWarning = true;}
 
     private:
@@ -54,11 +51,7 @@ class Sheet{
     std::string date = "";
     std::string houseFilterStr = "";
 
-    int numDetails = 0;
     bool tooFewWarning = false;
-    std::vector <std::string> labels = {};//labels for each detail
-    std::vector <std::vector<std::string>> detail_days_slots = {};//each detail has a string list of 7 days
-    /*std::vector <std::vector<std::vector<Person>>> detail_days_slots = {};//each detail has a string list of 7 days*/
-    std::vector <int> numPeople = {};//number of people on the detail
-    std::vector <std::string> daysString = {};
+    std::vector <Detail> details = {};
+    std::vector <int> numPeopleRequired = {};//number of people on the detail
 };

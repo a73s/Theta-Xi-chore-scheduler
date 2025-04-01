@@ -18,31 +18,14 @@ Sheet::Sheet(const std::string & title, const std::string & date, const std::str
 
 void Sheet::addDetail(const Detail & theDetail){
 
-    this->labels.push_back(theDetail.Label());
-    std::vector <std::string> aStrVec = {"","","","","","",""};
-    this->detail_days_slots.push_back(aStrVec);
-    /*std::vector<Person>aArrOfVecOfPerson[7];*/
-    /*this->detail_days_slots.push_back(aArrOfVecOfPerson);*/
-    this->numDetails++;
-    this->numPeople.push_back(theDetail.NumPeople());
-    this->daysString.push_back(theDetail.DaysString());
-
+    this->details.push_back(theDetail);
 }
 
-void Sheet::addPerson(const std::string & name, const int & detailIndex, const int & dayNum){
+void Sheet::addPerson(const Person & thePerson, const int & detailIndex, const int & dayNum){
 
-    if((this->detail_days_slots[detailIndex])[dayNum].empty()){
-
-        (this->detail_days_slots[detailIndex])[dayNum] = name;
-    }else{
-        (this->detail_days_slots[detailIndex])[dayNum] += (" & " + name);
-    }
+    this->details[detailIndex].addPerson(thePerson, dayNum);
     return;
 }
-
-/*Person Sheet::getPerson(const int detailIndex, const int dayNum, const int slotIndex){*/
-/*    return this->days[detailIndex][dayNum][slotIndex];*/
-/*}*/
 
 void Sheet::Output(const std::string & path){
 
@@ -53,16 +36,16 @@ void Sheet::Output(const std::string & path){
     oFile.WriteLine("| Week of " + this->date + "|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|");
     oFile.WriteLine("|-|-|-|-|-|-|-|-|");
 
-    for(int i = 0; i < this->numDetails; i++){
+    for(int i = 0; i < this->details.size(); i++){
 
         std::string oLine = "";
 
-        oLine += '|' + this->labels[i];
+        oLine += '|' + this->details[i].Label();
 
         for(int j = 0; j < 7; j++){
 
             oLine += "|";
-            oLine += this->detail_days_slots[i][j];
+            oLine += this->details[i].peopleToStr(j);
         }
 
         oLine += "|";
@@ -85,14 +68,14 @@ bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * 
     bool canBeEboard = false;
     int dayNum = 0;
 
-    for(int i = 0; i < this->NumDetails(); i++){
+    for(int detail_idx = 0; detail_idx < this->NumDetails(); detail_idx++){
 
-        daysString = this->DaysString(i);
-        canBePledge = this->NumPeople(i) > 1;
+        daysString = this->DaysString(detail_idx);
+        canBePledge = this->NumPeople(detail_idx) > 1;
 
-        for(int j = 0; j < static_cast<int>(daysString.size()); j++){
+        for(int day_idx = 0; day_idx < static_cast<int>(daysString.size()); day_idx++){
 
-            for(int k = 0; k < this->NumPeople(i); k++){
+            for(int i = 0; i < this->NumPeople(detail_idx); i++){
 
                 //only catches the primary pool runout, secondary pool runout is caught by the randomPerson() function returning an error
                 //we only catch the primary run out here so that we can quickly swap in the secondary pool
@@ -108,7 +91,7 @@ bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * 
                     activePoolPtr = secondaryPool;
                 }
 
-                dayNum = getDayNum(daysString[j]);
+                dayNum = getDayNum(daysString[day_idx]);
                 canBeEboard = (dayNum != 0) ? true:false;
 
                 if(dayNum != -1){
@@ -116,12 +99,8 @@ bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * 
                     try{
 
                         Person aPerson("none");
-                        if(k > 0){
-                            aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr);
-                        }else{
-                            aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr);
-                        }
-                        this->addPerson(aPerson.Label(), i, dayNum);
+                        aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr, this->details[detail_idx], day_idx);
+                        this->addPerson(aPerson.Label(), detail_idx, dayNum);
                     }
                     catch(char *errStr){//catches the error that there is nobody qualified
 

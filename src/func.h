@@ -53,7 +53,7 @@ void managePledgeTimer(const int timeDays = 30);
 //desc: picks a random person from the pool given the requirements
 //function will make sure that the person is from the target house (unless left blank), and that he meets the other requirements
 //if there is nobody that meets the requirements then a char* exception will be thrown
-Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse = "", Person detailPartner = Person("None"));
+Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse, const Detail & detail, const int detailDayIndex);
 
 
 //desc: returns the day number starting at 0 on monday and ending at 6 on sunday

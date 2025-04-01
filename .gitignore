@@ -9,3 +9,4 @@ build/CMakeCache.txt
 build/Output/*
 build/People/*
 build/Details/*
+src/codecompanion-workspace.json

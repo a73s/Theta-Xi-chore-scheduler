@@ -257,7 +257,7 @@ void managePledgeTimer(const int timeDays){
     return;
 }
 
-Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse, Person detailPartner){
+Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const bool canBePledge, const std::string targetHouse, const Detail & detail, const int detailDayIndex){
 
     std::vector<Person *> qualifiedPersons;
     qualifiedPersons.reserve(persons.size());
@@ -278,7 +278,7 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
 
         Person tPerson = persons[i];
 
-        isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard()) && (tPerson != detailPartner);
+        isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard()) && !detail.personAlreadyAdded(tPerson, detailDayIndex);
         // this condition inverted: (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()) || (!canBeEboard && personPtr->IsEboard())
 
         if(isQualified){
