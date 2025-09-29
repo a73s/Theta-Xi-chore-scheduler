@@ -71,11 +71,11 @@ bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * 
     for(int detail_idx = 0; detail_idx < this->NumDetails(); detail_idx++){
 
         daysString = this->DaysString(detail_idx);
-        canBePledge = this->NumPeople(detail_idx) > 1;
+        canBePledge = this->NumPeopleRequired(detail_idx) > 1;
 
         for(int day_idx = 0; day_idx < static_cast<int>(daysString.size()); day_idx++){
 
-            for(int i = 0; i < this->NumPeople(detail_idx); i++){
+            for(int i = 0; i < this->NumPeopleRequired(detail_idx); i++){
 
                 //only catches the primary pool runout, secondary pool runout is caught by the randomPerson() function returning an error
                 //we only catch the primary run out here so that we can quickly swap in the secondary pool
