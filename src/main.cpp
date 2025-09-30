@@ -95,8 +95,11 @@ int main(int argv, char *args[]){
         oldHouseSheet.addDetail(oldHouseDetails[i]);
     }
 
+    std::cout << "Filling new house sheet\n";
     newHouseSheet.Fill(&newHousePool, &communityPool);
+    std::cout << "Filling old house sheet\n";
     oldHouseSheet.Fill(&oldHousePool, &communityPool);
+    std::cout << "Filling community sheet\n";
     communitySheet.Fill(&communityPool);
 
     std::cout << "Unassigned from new house pool:" << std::endl;

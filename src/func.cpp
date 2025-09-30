@@ -4,6 +4,7 @@ Date: 1/12/24
 */
 
 #include <cstdlib>
+#include <stdexcept>
 #include <vector>
 #include <string>
 #include <ctime>
@@ -289,7 +290,7 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
 
     if(qualifiedPersons.size() == 0){
 
-        throw "No remaining people qualified."; 
+        throw std::runtime_error("No remaining people qualified."); 
     }
 
     Person thePerson = *(qualifiedPersons[genRand(0, qualifiedPersons.size() - 1)]);

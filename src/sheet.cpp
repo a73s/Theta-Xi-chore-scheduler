@@ -3,6 +3,7 @@ Author: Adam Seals
 Date: 1/12/24
 */
 
+#include <stdexcept>
 #include <string>
 
 #include "sheet.h"
@@ -102,10 +103,10 @@ bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * 
                         aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr, this->details[detail_idx], day_idx);
                         this->addPerson(aPerson.Label(), detail_idx, dayNum);
                     }
-                    catch(char *errStr){//catches the error that there is nobody qualified
+                    catch(std::runtime_error e){//catches the error that there is nobody qualified, thrown by randomPerson
 
                         this->Warn();
-                        std::cout << errStr << std::endl;
+                        std::cout << "Error: " << e.what() << std::endl;
                         return 1;
                     }
                 }
