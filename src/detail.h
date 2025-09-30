@@ -31,7 +31,7 @@ class Detail{
     std::string label;
     std::string daysString;
     std::vector<std::vector<Person>> days_slots;
-    int numPeopleRequired;
+    int numPeopleRequired = 0;
 
     void ParseDays(const std::string & days);
 

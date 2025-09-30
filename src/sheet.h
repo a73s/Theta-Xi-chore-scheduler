@@ -42,7 +42,7 @@ class Sheet{
 
     int NumDetails() const {return details.size();}
     std::string DaysString(const int index) const {return details[index].DaysString();}
-    int NumPeopleRequired(const int index) const {return numPeopleRequired[index];}
+    int NumPeopleRequired(const int index) const {return details[index].NumPeople();}
     void Warn() {tooFewWarning = true;}
 
     private:
@@ -53,5 +53,4 @@ class Sheet{
 
     bool tooFewWarning = false;
     std::vector <Detail> details = {};
-    std::vector <int> numPeopleRequired = {};//number of people on the detail
 };

@@ -6,10 +6,15 @@ Date: 1/12/24
 #include "detail.h"
 #include "person.h"
 #include "func.h"
+#include <cassert>
+#include <cctype>
 #include <iostream>
 #include <string>
+#include <vector>
 
-Detail::Detail(const std::string & infoString){
+Detail::Detail(const std::string & infoString)
+: days_slots(7)
+{
 
     int sectionNum = 0;
     std::string tempLabel = "";
@@ -40,7 +45,10 @@ Detail::Detail(const std::string & infoString){
 
         if(sectionNum == 2 && infoString[i] != '\r'){//if in section 3 and the character is not a space, also make sure that the character is not a carriage return
 
-            this->numPeopleRequired = static_cast <int> (infoString[i]) - 48;
+            if (std::isdigit(infoString[i])) {
+                this->numPeopleRequired = static_cast <int> (infoString[i]) - 48;
+                break;
+            }
         }
     }
 
@@ -54,6 +62,7 @@ Detail::Detail(const std::string & infoString){
 
     this->daysString = days;
     this->label = tempLabel;
+
 }
 
 void Detail::Print(){
@@ -66,7 +75,7 @@ void Detail::Print(){
 }
 
 void Detail::addPerson(const Person & thePerson, const int day_idx){
-    this->days_slots[day_idx].push_back(thePerson);
+    this->days_slots.at(day_idx).push_back(thePerson);
     return;
 }
 
@@ -82,14 +91,12 @@ std::string Detail::peopleToStr(const int day_idx) const{
     const std::vector<Person> & peopleOnDetail = this->days_slots[day_idx];
 
     std::string out = "";
-    if(this->days_slots.size() < 1){
-        return "";
-    }else{
-        out = peopleOnDetail[0].Label();
-    }
 
-    for(int i = 1; i < peopleOnDetail.size(); i++){
-        out += " & " + peopleOnDetail[i].Label();
+    for(int i = 0; i < peopleOnDetail.size(); i++){
+        if(i != 0){
+            out += " & ";
+        }
+        out += peopleOnDetail[i].Label();
     }
     return out;
 }

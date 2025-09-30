@@ -279,8 +279,16 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
 
         Person tPerson = persons[i];
 
-        isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard()) && !detail.personAlreadyAdded(tPerson, detailDayIndex);
-        // this condition inverted: (!canBePledge && personPtr->IsPledge()) || (mustBeNewHouse && !personPtr->CanBeBarrowedFromCommunity()) || (!canBeEboard && personPtr->IsEboard())
+        // isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard()) && !detail.personAlreadyAdded(tPerson, detailDayIndex);
+        if (canBePledge || !tPerson.IsPledge()) {
+            if (tPerson.House() == targetHouse || targetHouse == "") {
+                if (canBeEboard || !tPerson.IsEboard()) {
+                    if (detail.personAlreadyAdded(tPerson, detailDayIndex) == false) {
+                        isQualified = true;
+                    }
+                }
+            }
+        }
 
         if(isQualified){
 

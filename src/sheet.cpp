@@ -5,6 +5,7 @@ Date: 1/12/24
 
 #include <stdexcept>
 #include <string>
+#include <assert.h>
 
 #include "sheet.h"
 #include "file.h"
@@ -99,6 +100,7 @@ bool Sheet::Fill(std::vector<Person> * const primaryPool, std::vector<Person> * 
 
                     try{
 
+                        assert(day_idx < daysString.size());
                         Person aPerson("none");
                         aPerson = randomPerson(*activePoolPtr, canBeEboard, canBePledge, this->houseFilterStr, this->details[detail_idx], day_idx);
                         this->addPerson(aPerson.Label(), detail_idx, dayNum);
