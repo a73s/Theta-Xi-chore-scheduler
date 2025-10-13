@@ -13,3 +13,4 @@ set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall -W -pedantic-errors -g -static")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -W -pedantic-errors -s -static")
 
 add_executable(DetailGen ${SOURCE_FILES})
+target_link_options(DetailGen PRIVATE -static -static-libgcc -static-libstdc++)
