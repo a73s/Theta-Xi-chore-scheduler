@@ -10,3 +10,4 @@ build/Output/*
 build/People/*
 build/Details/*
 src/codecompanion-workspace.json
+src/tags
