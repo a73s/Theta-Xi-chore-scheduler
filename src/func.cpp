@@ -265,8 +265,6 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
     //vector of pointers so we're not copying so much data
     //initialized to the size of persons. This should cut down on the number of resize operations required
 
-    bool isQualified = false;
-
     // we want to create a list of people who are elegable for the given detail spot.
     // this allows us to pick people from the list and be certain that they are elegable.
     // the alternative is to repeatedly get a random person from the list until we get one who is elegable.
@@ -278,6 +276,7 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
     for(int i = 0; i < static_cast<int>(persons.size()); i++){
 
         Person tPerson = persons[i];
+        bool isQualified = false;
 
         // isQualified = (canBePledge || !tPerson.IsPledge()) && (tPerson.House() == targetHouse || targetHouse == "") && (canBeEboard || !tPerson.IsEboard()) && !detail.personAlreadyAdded(tPerson, detailDayIndex);
         if (canBePledge || !tPerson.IsPledge()) {
@@ -291,8 +290,8 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
         }
 
         if(isQualified){
-
             qualifiedPersons.push_back(&persons[i]);
+            isQualifies = false;
         }
     }
 
