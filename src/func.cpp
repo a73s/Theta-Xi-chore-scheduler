@@ -291,7 +291,7 @@ Person randomPerson(std::vector<Person> & persons, const bool canBeEboard, const
 
         if(isQualified){
             qualifiedPersons.push_back(&persons[i]);
-            isQualifies = false;
+            isQualified = false;
         }
     }
 
