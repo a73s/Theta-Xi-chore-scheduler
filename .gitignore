@@ -9,5 +9,6 @@ build/CMakeCache.txt
 build/Output/*
 build/People/*
 build/Details/*
+debug
 src/codecompanion-workspace.json
 src/tags
