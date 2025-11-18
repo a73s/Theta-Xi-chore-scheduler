@@ -35,6 +35,12 @@ void Sheet::Output(const std::string & path){
     oFile.Open(path);
 
     oFile.WriteLine("### " + this->title);
+
+    if(this->tooFewWarning){
+
+        oFile.WriteLine("\n> **Warning** \n> Too few people to fill sheet.");
+    }
+
     oFile.WriteLine("| Week of " + this->date + "|**Mon.**|**Tues.**|**Wed.**|**Thurs.**|**Fri.**|**Sat.**|**Sun.**|");
     oFile.WriteLine("|-|-|-|-|-|-|-|-|");
 
@@ -52,11 +58,6 @@ void Sheet::Output(const std::string & path){
 
         oLine += "|";
         oFile.WriteLine(oLine);
-    }
-
-    if(this->tooFewWarning){
-
-        oFile.WriteLine("\n> **Warning** \n> Too few people to fill sheet.");
     }
 
     oFile.Close();
